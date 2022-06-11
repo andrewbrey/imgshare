@@ -47,9 +47,12 @@ USER node
 
 FROM node:18-alpine AS production
 
+WORKDIR /imgshare
+
 RUN apk add perl exiftool
 
 COPY --chown=node:node --from=build /workspace/node_modules ./node_modules
+COPY --chown=node:node --from=build /workspace/public ./public
 COPY --chown=node:node --from=build /workspace/dist ./dist
 
 USER node

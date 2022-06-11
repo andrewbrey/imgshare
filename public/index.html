@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-100">
+<html lang="en" class="bg-gray-100 h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Share</title>
-    <link rel="icon" href="https://fav.farm/🚀" />
+    <title>Imgshare</title>
+    <link rel="icon" href="https://fav.farm/📸" />
+    <link rel="stylesheet" href="index.css" />
   </head>
-  <body></body>
+  <body class="h-full flex flex-col items-center p-4">
+    <form
+      class="group mb-10"
+      method="POST"
+      action="/api/clean"
+      enctype="multipart/form-data"
+    >
+      <div
+        class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+      >
+        <div class="text-center">
+          <svg
+            class="mx-auto h-12 w-12 text-gray-400"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <path
+              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <div class="flex justify-center text-sm text-gray-600">
+            <label
+              for="file-upload"
+              class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+            >
+              <span>Pick an image</span>
+              <input
+                id="file-upload"
+                name="file-upload"
+                type="file"
+                class="sr-only"
+                required
+              />
+            </label>
+          </div>
+          <div class="mt-4">
+            <button
+              class="text-indigo-800 bg-indigo-100 rounded-md px-2 group-invalid:grayscale group-invalid:cursor-not-allowed group-valid:ring-1 group-valid:ring-indigo-300"
+              type="submit"
+            >
+              Upload selected file
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="w-full grid place-items-center">
+      <img src="https://picsum.photos/id/237/200/300" alt="" srcset="" />
+    </div>
+    <script type="module">
+      // TODO: pull img source from url bar
+    </script>
+  </body>
 </html>

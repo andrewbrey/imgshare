@@ -44,6 +44,7 @@
                 name="file-upload"
                 type="file"
                 class="sr-only"
+                accept=".jpg, .jpeg, .png"
                 required
               />
             </label>
@@ -59,11 +60,38 @@
         </div>
       </div>
     </form>
-    <div class="w-full grid place-items-center">
-      <img src="https://picsum.photos/id/237/200/300" alt="" srcset="" />
+    <div class="w-full grid place-items-center overflow-hidden">
+      <img
+        src=""
+        title="Click to open"
+        class="object-cover origin-center hover:cursor-pointer hover:scale-105 transition-transform"
+      />
+      <p class="msg"></p>
     </div>
     <script type="module">
-      // TODO: pull img source from url bar
+      const loc = new URL(window.location);
+      const has = loc.searchParams.has('img');
+      const img = loc.searchParams.get('img');
+
+      loc.searchParams.delete('img');
+      window.history.pushState(null, '', `${loc}`);
+
+      if (has) {
+        if (img) {
+          const $img = document.querySelector('img');
+          const cleanURL = `/uploads/${img}`;
+
+          $img.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(cleanURL, '_blank');
+          });
+
+          $img.src = cleanURL;
+        } else {
+          document.querySelector('.msg').innerHTML =
+            'Something went wrong :shrug:';
+        }
+      }
     </script>
   </body>
 </html>

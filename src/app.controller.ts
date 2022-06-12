@@ -6,6 +6,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 import { AppService } from './app.service';
 
 @Controller('api')
@@ -13,11 +14,26 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('clean')
-  @UseInterceptors(FileInterceptor('file-upload'))
+  @UseInterceptors(
+    FileInterceptor('file-upload', {
+      storage: diskStorage({
+        destination(req, file, cb) {
+          cb(null, './public/uploads/');
+        },
+        filename(req, file, cb) {
+          cb(null, file.originalname); // Will overwrite files of same name!
+        },
+      }),
+    }),
+  )
   @Redirect()
-  cleanImg(@UploadedFile() file: Express.Multer.File) {
-    console.log({ file });
+  async cleanImg(@UploadedFile() file: Express.Multer.File) {
+    if (!file) return { url: '/' };
 
-    return { url: '/?thing=blah' };
+    const search = new URLSearchParams({
+      img: await this.appService.cleanImg(file),
+    });
+
+    return { url: `/?${search}` };
   }
 }

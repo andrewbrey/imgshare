@@ -6,7 +6,7 @@ FROM node:18-alpine AS development
 
 WORKDIR /workspace
 
-RUN apk add perl exiftool git sudo
+RUN apk add perl exiftool git sudo imagemagick
 
 RUN echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
     && chmod 0440 /etc/sudoers.d/node
@@ -49,7 +49,7 @@ FROM node:18-alpine AS production
 
 WORKDIR /imgshare
 
-RUN apk add perl exiftool
+RUN apk add perl exiftool imagemagick
 
 COPY --chown=node:node --from=build /workspace/node_modules ./node_modules
 COPY --chown=node:node --from=build /workspace/public ./public

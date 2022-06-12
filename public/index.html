@@ -60,33 +60,53 @@
         </div>
       </div>
     </form>
-    <div class="w-full grid place-items-center overflow-hidden">
-      <img
-        src=""
-        title="Click to open"
-        class="object-cover origin-center hover:cursor-pointer hover:scale-105 transition-transform"
-      />
-      <p class="msg"></p>
+    <div class="w-full grid grid-cols-2 overflow-hidden">
+      <div>
+        <p class="size hidden pb-6">Full Size</p>
+        <img
+          src=""
+          title="Click to open"
+          class="object-cover origin-center hover:cursor-pointer hover:scale-105 transition-transform"
+        />
+      </div>
+      <div>
+        <p class="size hidden pb-6">Small</p>
+        <img
+          src=""
+          title="Click to open"
+          class="object-cover origin-center hover:cursor-pointer hover:scale-105 transition-transform"
+        />
+      </div>
     </div>
+    <p class="msg"></p>
     <script type="module">
       const loc = new URL(window.location);
       const has = loc.searchParams.has('img');
       const img = loc.searchParams.get('img');
 
-      loc.searchParams.delete('img');
-      window.history.pushState(null, '', `${loc}`);
+      // Remove to hide the modified image from URL
+      // loc.searchParams.delete('img');
+      // window.history.pushState(null, '', `${loc}`);
 
       if (has) {
         if (img) {
-          const $img = document.querySelector('img');
+          const $imgs = document.querySelectorAll('img');
           const cleanURL = `/uploads/${img}`;
+          const cleanSmallURL = `/uploads/small/${img}`;
 
-          $img.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open(cleanURL, '_blank');
+          $imgs.forEach(($img) => {
+            $img.addEventListener('click', (e) => {
+              e.preventDefault();
+              window.open($img.src, '_blank');
+            });
           });
 
-          $img.src = cleanURL;
+          $imgs[0].src = cleanURL;
+          $imgs[1].src = cleanSmallURL;
+
+          document
+            .querySelectorAll('p.size')
+            .forEach((p) => p.classList.remove('hidden'));
         } else {
           document.querySelector('.msg').innerHTML =
             'Something went wrong :shrug:';

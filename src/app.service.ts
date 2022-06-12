@@ -13,7 +13,7 @@ export class AppService {
     const parsed = parse(file.path);
 
     return await exec(
-      `exiftool -all="" ${file.path} && mkdir -p ${parsed.dir}/small && convert ${file.path} -resize 1920x1080\\> ${parsed.dir}/small/${file.filename}`,
+      `exiftool -all="" ${file.path} && convert ${file.path} -resize 1920x1080\\> ${parsed.dir}/small/${file.filename}`,
     )
       .then(() => file.filename)
       .catch((e) => {

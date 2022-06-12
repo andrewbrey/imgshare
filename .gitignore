@@ -1,7 +1,14 @@
 # compiled output
 /dist
 /node_modules
-/public/uploads
+/public/uploads/*
+
+!/public/uploads/.keep
+!/public/uploads/small/
+
+/public/uploads/small/*
+!/public/uploads/small/.keep
+
 
 # Logs
 logs

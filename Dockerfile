@@ -19,6 +19,8 @@ COPY --chown=node:node . .
 
 USER node
 
+RUN mkdir -p public/uploads/small/
+
 ###################
 # BUILD FOR PRODUCTION
 ###################
@@ -56,5 +58,7 @@ COPY --chown=node:node --from=build /workspace/public ./public
 COPY --chown=node:node --from=build /workspace/dist ./dist
 
 USER node
+
+RUN mkdir -p public/uploads/small/
 
 CMD [ "node", "dist/main.js" ]

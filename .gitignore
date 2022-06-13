@@ -9,6 +9,7 @@
 /public/uploads/small/*
 !/public/uploads/small/.keep
 
+.env
 
 # Logs
 logs
